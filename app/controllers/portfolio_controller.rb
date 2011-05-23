@@ -26,6 +26,12 @@ class PortfolioController < ApplicationController
         single_level
       end
 
+      portfolio_page = Page.find_by_link_url("/portfolio/#{@portfolio_entry.title}",
+                                    :include => [:parts])
+      if(portfolio_page)
+        @page=portfolio_page
+      end
+
       begin
         image_index = (params[:image_id].presence || '0').to_i
         @image = @portfolio_entry.images[image_index]
